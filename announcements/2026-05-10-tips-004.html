@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Liltで支出カテゴリの絵文字と色を設定する方法を紹介します。">
+  <title>ひと目で分かる、自分だけのカテゴリ管理</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .points-number {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .points-number li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+      counter-increment: step;
+    }
+
+    .points-number li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.72;
+      content: counter(step) ".";
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 32px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <article
+      class="announcement"
+      aria-labelledby="announcement-title"
+      data-announcement-type="tips"
+    >
+      <div class="content">
+
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+        </div>
+
+        <h1 id="announcement-title">
+          ひと目で分かる、<br>
+          自分だけのカテゴリ管理
+        </h1>
+
+        <p class="lead">
+          Liltでは、支出カテゴリごとに
+          絵文字と色を設定できます。
+          記録追加時やダッシュボードでカテゴリを選ぶ時も、
+          ひと目で直感的に選びやすくなります。
+          設定した色はグラフや背景のグラデーションにも反映されます。
+        </p>
+
+        <figure class="announcement-image">
+          <img
+            src="2026-05-10-tips-004.png"
+            alt="支出カテゴリの絵文字と色を設定するイメージ"
+          >
+        </figure>
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+
+          <ul class="points">
+            <li>
+              支出カテゴリごとに、絵文字と色を設定できます。
+            </li>
+
+            <li>
+              絵文字を設定すると、カテゴリ選択時に直感的に見分けやすくなります。
+            </li>
+
+            <li>
+              設定した色は、ダッシュボードのグラフや背景デザインにも反映されます。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 id="how-title">使い方</h2>
+
+          <ol class="points-number">
+            <li>
+              画面右上の設定ボタンをタップします。
+            </li>
+
+            <li>
+              「支出カテゴリ・予算」を開きます。
+            </li>
+
+            <li>
+              設定したいカテゴリの右側にある丸をタップします。
+            </li>
+
+            <li>
+              色を選択する画面が表示されます。
+            </li>
+
+            <li>
+              画面左上の「絵文字を設定」をタップします。
+            </li>
+
+            <li>
+              絵文字一覧から、カテゴリに設定したい絵文字を選択します。
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="color-title">
+          <h2 id="color-title">カテゴリ色について</h2>
+
+          <p>
+            設定した色は、
+            ダッシュボードのグラフカラーとして使用されます。
+            また、その月のカテゴリごとの支出状況に応じて、
+            背景のグラデーションも切り替わります。
+            支出の傾向を、見た目からも自然に把握しやすくなります。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+
+          <p>
+            各支出カテゴリの右側にあるスイッチでは、
+            ダッシュボードにそのカテゴリを表示するかを選択できます。
+            オフにするとダッシュボード上では非表示になりますが、
+            データの整合性を維持するため、
+            支出合計額・累計貯金額・貯蓄の累計推移には計算対象として保持されます。
+          </p>
+        </section>
+
+      </div>
+    </article>
+  </main>
+</body>
+</html>
