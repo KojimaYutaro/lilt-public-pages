@@ -8,26 +8,22 @@
   <style>
     :root {
       color-scheme: light dark;
-      --background: #f5f5f7;
+      --background: #ffffff;
       --surface: #ffffff;
       --text: #1d1d1f;
       --text-secondary: #6e6e73;
       --separator: rgba(60, 60, 67, 0.18);
       --accent: #248a3d;
-      --accent-soft: rgba(36, 138, 61, 0.12);
-      --shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
         --background: #000000;
-        --surface: #1c1c1e;
-        --text: #f5f5f7;
+        --surface: #000000;
+        --text: #ffffff;
         --text-secondary: #a1a1a6;
         --separator: rgba(235, 235, 245, 0.16);
         --accent: #30d158;
-        --accent-soft: rgba(48, 209, 88, 0.16);
-        --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
       }
     }
 
@@ -56,14 +52,13 @@
     }
 
     .announcement {
-      border: 1px solid var(--separator);
-      border-radius: 8px;
+      border: 0;
+      border-radius: 0;
       background: var(--surface);
-      box-shadow: var(--shadow);
     }
 
     .content {
-      padding: 48px 44px 44px;
+      padding: 0;
     }
 
     .meta {
@@ -81,12 +76,12 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
+      min-height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
       color: var(--accent);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
     }
 
@@ -116,7 +111,7 @@
       display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border: 1px solid var(--separator);
+      border: 0;
       border-radius: 8px;
       object-fit: cover;
     }
@@ -184,10 +179,6 @@
         padding: 20px 12px 32px;
       }
 
-      .content {
-        padding: 30px 22px;
-      }
-
       h1 {
         font-size: 32px;
         line-height: 1.16;
@@ -222,7 +213,8 @@
         <!--
           IMAGE_BLOCK_START
           画像を削除する場合は、このコメントから IMAGE_BLOCK_END までを削除してください。
-          src と alt は公開する内容に合わせて差し替えてください。
+          アプリ内表示では ../Lilt/... のような開発環境パスは読み込めません。
+          src は公開済みの https URL、同じ公開フォルダ内の相対パス、または data:image/... に差し替えてください。
         -->
         <figure class="announcement-image">
           <img src="announcements/assets/2026-05-09-new-feature-001.png" alt="アプリ更新のお知らせイメージ">
