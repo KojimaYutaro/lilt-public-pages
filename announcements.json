@@ -8,7 +8,7 @@
       "publishedAt": "2026-05-10 00:00",
       "url": "announcements/2026-05-10-tips-001.html",
       "active": true,
-      "notify": true
+      "notify": false
     },
     {
       "id": "2026-05-10-tips-002",
@@ -18,7 +18,7 @@
       "publishedAt": "2026-05-10 00:00",
       "url": "announcements/2026-05-10-tips-002.html",
       "active": true,
-      "notify": true
+      "notify": false
     },
     {
       "id": "2026-05-10-tips-003",
@@ -28,7 +28,7 @@
       "publishedAt": "2026-05-10 00:00",
       "url": "announcements/2026-05-10-tips-003.html",
       "active": true,
-      "notify": true
+      "notify": false
     },
     {
       "id": "2026-05-10-tips-004",
@@ -38,7 +38,7 @@
       "publishedAt": "2026-05-10 00:00",
       "url": "announcements/2026-05-10-tips-004.html",
       "active": true,
-      "notify": true
+      "notify": false
     }
   ]
 }
