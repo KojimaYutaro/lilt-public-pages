@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Liltをアプリを開かずにロック画面から記録する方法を紹介します。">
+  <title>アプリを開かず、ロック画面からすぐ記録</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .points-number {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .points-number li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+      counter-increment: step;
+    }
+
+    .points-number li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.72;
+      content: counter(step) ".";
+    }
+
+    .note-list {
+      display: grid;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .note-list li {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .note-list strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .note-list span {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 32px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <article
+      class="announcement"
+      aria-labelledby="announcement-title"
+      data-announcement-type="tips"
+    >
+      <div class="content">
+
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+        </div>
+
+        <h1 id="announcement-title">
+          アプリを開かず、<br>
+          ロック画面からすぐ記録
+        </h1>
+
+        <p class="lead">
+          Liltはショートカットに対応しています。
+          ロック画面に設定しておくことで、
+          アプリを開かなくてもすばやく記録できます。
+          コンビニのレジで決済した直後など、
+          時間がない時のクイック登録に便利です。
+        </p>
+
+        <figure class="announcement-image">
+          <img
+            src="2026-05-10-tips-002.png"
+            alt="ロック画面からLiltの記録を追加するイメージ"
+          >
+        </figure>
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+
+          <ul class="points">
+            <li>
+              ショートカットを使うと、Liltを開かずに記録できます。
+            </li>
+
+            <li>
+              ロック画面に設定しておくと、決済後すぐに記録できます。
+            </li>
+
+            <li>
+              支出記録・収入記録のどちらもクイック登録できます。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="methods-title">
+          <h2 id="methods-title">2つの登録方法</h2>
+
+          <p>
+            ロック画面から記録する方法は、主に2つあります。
+            すぐに使いたい場合は「簡単設定」、
+            表示するカテゴリや固定金額などを調整したい場合は
+            「応用設定」がおすすめです。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="easy-title">
+          <h2 id="easy-title">簡単設定</h2>
+
+          <ol class="points-number">
+            <li>
+              ロック画面を開き、画面の余白部分を長押しします。
+            </li>
+
+            <li>
+              画面下中央の「カスタマイズ」をタップします。
+            </li>
+
+            <li>
+              画面下左右の丸いアイコンから、不要な方の「−」をタップします。
+            </li>
+
+            <li>
+              「＋」をタップし、「ショートカットを実行」を選択します。
+            </li>
+
+            <li>
+              「選択」をタップし、検索バーで「Lilt」と検索します。
+            </li>
+
+            <li>
+              「支出記録」または「収入記録」から、クイック登録したい方を選びます。
+            </li>
+
+            <li>
+              画面右上の「完了」をタップします。
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="advanced-title">
+          <h2 id="advanced-title">応用設定</h2>
+
+          <ol class="points-number">
+            <li>
+              「ショートカット」アプリを開き、
+              「＋」から新規ショートカットを作成します。
+            </li>
+
+            <li>
+              「アクションを検索」で「Lilt」と検索し、
+              「支出記録」または「収入記録」を選択します。
+            </li>
+
+            <li>
+              「＞」をタップして、必要に応じて詳細項目を設定します。
+            </li>
+
+            <li>
+              ショートカットを保存したら、
+              「簡単設定」と同じ手順でロック画面に追加します。
+            </li>
+
+            <li>
+              最後に、今回作成したショートカットを選択します。
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="advanced-note-title">
+          <h2 id="advanced-note-title">応用設定でカスタマイズできる項目</h2>
+
+          <ul class="note-list">
+            <li>
+              <strong>Amount</strong>
+              <span>
+                未入力のまま推奨。
+                毎回固定金額で登録する場合は入力します。
+              </span>
+            </li>
+
+            <li>
+              <strong>選択可能な支払元 / 入金先</strong>
+              <span>
+                Liltに登録されている支払元・入金先から、
+                実行時に表示する候補を絞ることができます。
+              </span>
+            </li>
+
+            <li>
+              <strong>支払元 / 入金先</strong>
+              <span>
+                未設定のまま推奨。
+                毎回固定する場合は選択します。
+              </span>
+            </li>
+
+            <li>
+              <strong>選択可能なカテゴリ</strong>
+              <span>
+                Liltに登録されているカテゴリから、
+                実行時に表示する候補を絞ることができます。
+              </span>
+            </li>
+
+            <li>
+              <strong>カテゴリ</strong>
+              <span>
+                未設定のまま推奨。
+                毎回固定カテゴリで登録する場合は選択します。
+              </span>
+            </li>
+
+            <li>
+              <strong>Memo</strong>
+              <span>
+                未入力のまま推奨。
+                毎回固定メモを入れたい場合は入力します。
+              </span>
+            </li>
+
+            <li>
+              <strong>実行時に表示</strong>
+              <span>
+                オフ推奨。
+                ショートカット側の通知を表示せず、
+                よりスムーズに実行できます。
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+
+          <p>
+            ロック画面にLiltのショートカットを設定すると、
+            アイコンを長押しするだけでクイック登録を開始できます。
+            よく使う記録方法に合わせて設定しておくと、
+            日々の記録がさらにスムーズになります。
+          </p>
+        </section>
+
+      </div>
+    </article>
+  </main>
+</body>
+</html>
