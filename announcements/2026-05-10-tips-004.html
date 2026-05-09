@@ -54,6 +54,16 @@
         sans-serif;
     }
 
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.72;
+    }
+
     .page {
       width: min(100%, 900px);
       margin: 0 auto;
@@ -283,7 +293,10 @@
             </li>
 
             <li>
-              「支出カテゴリ・予算」を開きます。
+              <a href="lilt://settings/expense-categories">
+                「支出カテゴリ・予算」
+              </a>
+              を開きます。
             </li>
 
             <li>
