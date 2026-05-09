@@ -5,10 +5,10 @@
       "category": "new_feature",
       "title": "新機能のお知らせ",
       "body": "登録画面を改善しました。",
-      "publishedAt": "2026-05-09",
+      "publishedAt": "2026-05-01T13:00:00Z",
       "url": "announcements/2026-05-09-new-feature-001.html",
-      "active": false,
-      "notify": false
+      "active": true,
+      "notify": true
     }
   ]
 }
