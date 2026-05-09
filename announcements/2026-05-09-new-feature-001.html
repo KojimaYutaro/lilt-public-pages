@@ -3,31 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Liltのアプリ更新に関するお知らせです。">
-  <title>アプリ更新のお知らせ</title>
+  <meta name="description" content="Liltのメンテナンス・不具合に関するお知らせです。">
+  <title>メンテナンス・不具合のお知らせ</title>
   <style>
     :root {
       color-scheme: light dark;
-      --background: #f5f5f7;
+      --background: #ffffff;
       --surface: #ffffff;
       --text: #1d1d1f;
       --text-secondary: #6e6e73;
       --separator: rgba(60, 60, 67, 0.18);
-      --accent: #248a3d;
-      --accent-soft: rgba(36, 138, 61, 0.12);
-      --shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+      --accent: #d97706;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
         --background: #000000;
-        --surface: #1c1c1e;
-        --text: #f5f5f7;
+        --surface: #000000;
+        --text: #ffffff;
         --text-secondary: #a1a1a6;
         --separator: rgba(235, 235, 245, 0.16);
-        --accent: #30d158;
-        --accent-soft: rgba(48, 209, 88, 0.16);
-        --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+        --accent: #ff9f0a;
       }
     }
 
@@ -56,14 +52,13 @@
     }
 
     .announcement {
-      border: 1px solid var(--separator);
-      border-radius: 8px;
+      border: 0;
+      border-radius: 0;
       background: var(--surface);
-      box-shadow: var(--shadow);
     }
 
     .content {
-      padding: 48px 44px 44px;
+      padding: 0;
     }
 
     .meta {
@@ -81,12 +76,12 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
+      min-height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
       color: var(--accent);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
     }
 
@@ -116,7 +111,7 @@
       display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border: 1px solid var(--separator);
+      border: 0;
       border-radius: 8px;
       object-fit: cover;
     }
@@ -184,10 +179,6 @@
         padding: 20px 12px 32px;
       }
 
-      .content {
-        padding: 30px 22px;
-      }
-
       h1 {
         font-size: 32px;
         line-height: 1.16;
@@ -206,53 +197,54 @@
 </head>
 <body>
   <main class="page">
-    <article class="announcement" aria-labelledby="announcement-title" data-announcement-type="app_update">
+    <article class="announcement" aria-labelledby="announcement-title" data-announcement-type="maintenance">
       <div class="content">
         <div class="meta">
-          <span class="eyebrow">アプリ更新</span>
+          <span class="eyebrow">メンテナンス・不具合</span>
           <time datetime="2026-05-09">2026.05.09</time>
         </div>
 
-        <h1 id="announcement-title">アプリをアップデートしました</h1>
+        <h1 id="announcement-title">メンテナンスのお知らせ</h1>
         <p class="lead">
-          今回のアップデートでは、操作の流れを見直し、日々の記録がよりスムーズになるよう改善しました。
-          最新版に更新してご利用ください。
+          より安定してご利用いただけるよう、システムメンテナンスを実施します。
+          対象時間中は、一部の機能が利用しづらくなる場合があります。
         </p>
 
         <!--
           IMAGE_BLOCK_START
           画像を削除する場合は、このコメントから IMAGE_BLOCK_END までを削除してください。
-          src と alt は公開する内容に合わせて差し替えてください。
+          アプリ内表示では ../Lilt/... のような開発環境パスは読み込めません。
+          src は公開済みの https URL、同じ公開フォルダ内の相対パス、または data:image/... に差し替えてください。
         -->
         <figure class="announcement-image">
-          <img src="announcements/assets/2026-05-09-new-feature-001.png" alt="アプリ更新のお知らせイメージ">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAwIDkwMCI+PHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAwIiBmaWxsPSIjZmZmZmZmIi8+PHJlY3QgeD0iNDgiIHk9IjQ4IiB3aWR0aD0iMTUwNCIgaGVpZ2h0PSI4MDQiIHJ4PSIzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDk3NzA2IiBzdHJva2Utd2lkdGg9IjgiLz48Y2lyY2xlIGN4PSI4MDAiIGN5PSIzODIiIHI9IjEwNCIgZmlsbD0iI2Q5NzcwNiIgb3BhY2l0eT0iLjEyIi8+PHBhdGggZD0iTTgwMCAzMTJ2MTEyIiBmaWxsPSJub25lIiBzdHJva2U9IiNkOTc3MDYiIHN0cm9rZS13aWR0aD0iMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjgwMCIgY3k9IjQ3OCIgcj0iMTYiIGZpbGw9IiNkOTc3MDYiLz48dGV4dCB4PSI4MDAiIHk9IjU3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjcwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMWQxZDFmIj5NYWludGVuYW5jZTwvdGV4dD48L3N2Zz4=" alt="メンテナンスのお知らせイメージ">
         </figure>
         <!-- IMAGE_BLOCK_END -->
 
         <div class="divider" role="presentation"></div>
 
-        <section class="section" aria-labelledby="changes-title">
-          <h2 id="changes-title">主な変更点</h2>
+        <section class="section" aria-labelledby="impact-title">
+          <h2 id="impact-title">影響範囲</h2>
           <ul class="points">
-            <li>今回追加・改善した機能を短く記載します。</li>
-            <li>表示や操作感の調整など、ユーザーが気づきやすい変更をまとめます。</li>
-            <li>不具合修正が含まれる場合は、影響が大きいものから記載します。</li>
+            <li>対象となる機能や画面をここに記載します。</li>
+            <li>利用できない時間帯、または動作が不安定になる可能性を具体的に伝えます。</li>
+            <li>保存済みのデータに影響がない場合は、その旨を明記します。</li>
           </ul>
         </section>
 
-        <section class="section" aria-labelledby="update-method-title">
-          <h2 id="update-method-title">更新方法</h2>
+        <section class="section" aria-labelledby="schedule-title">
+          <h2 id="schedule-title">実施予定</h2>
           <p>
-            App Storeから最新版へアップデートできます。
-            自動アップデートを有効にしている場合は、順次最新版が適用されます。
+            2026年5月9日 00:00から00:00まで実施予定です。
+            作業状況により、終了時刻が前後する場合があります。
           </p>
         </section>
 
-        <section class="section" aria-labelledby="version-title">
-          <h2 id="version-title">バージョン</h2>
+        <section class="section" aria-labelledby="workaround-title">
+          <h2 id="workaround-title">お願い</h2>
           <p>
-            対象バージョンや配信開始日をここに記載します。
-            重要な変更がある場合は、更新前に確認してほしい内容も添えてください。
+            メンテナンス中に操作が完了しない場合は、時間をおいて再度お試しください。
+            不具合のお知らせとして使う場合は、発生条件と回避方法をここに記載します。
           </p>
         </section>
       </div>
