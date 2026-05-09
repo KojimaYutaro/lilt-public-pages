@@ -1,3 +1,14 @@
 {
-  "announcements": []
+  "announcements": [
+    {
+      "id": "2026-05-09-new-feature-001",
+      "category": "new_feature",
+      "title": "新機能のお知らせ",
+      "body": "登録画面を改善しました。",
+      "publishedAt": "2026-05-09",
+      "url": "announcements/2026-05-09-new-feature-001.html",
+      "active": true,
+      "notify": true
+    }
+  ]
 }
