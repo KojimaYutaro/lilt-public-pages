@@ -1,10 +1,14 @@
 {
-  "id": "2026-05-10-tips-001",
-  "category": "tips",
-  "title": "使い方のコツ",
-  "body": "ティップス本文の要約です。",
-  "publishedAt": "2026-05-10 00:00",
-  "url": "announcements/2026-05-10-tips-001.html",
-  "active": true,
-  "notify": true
+  "announcements": [
+    {
+      "id": "2026-05-10-tips-001",
+      "category": "tips",
+      "title": "使い方のコツ",
+      "body": "ティップス本文の要約です。",
+      "publishedAt": "2026-05-10 00:00",
+      "url": "announcements/2026-05-10-tips-001.html",
+      "active": true,
+      "notify": true
+    }
+  ]
 }
