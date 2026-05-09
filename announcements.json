@@ -3,10 +3,40 @@
     {
       "id": "2026-05-10-tips-001",
       "category": "tips",
-      "title": "使い方のコツ",
-      "body": "ティップス本文の要約です。",
+      "title": "スーパーのまとめ買いも、かんたん内訳管理",
+      "body": "1回の記録を複数カテゴリに分けて、直感的に管理できます。",
       "publishedAt": "2026-05-10 00:00",
       "url": "announcements/2026-05-10-tips-001.html",
+      "active": true,
+      "notify": true
+    },
+    {
+      "id": "2026-05-10-tips-002",
+      "category": "tips",
+      "title": "アプリを開かず、ロック画面からすぐ記録",
+      "body": "ショートカットを使って、ロック画面からすばやく記録できます。",
+      "publishedAt": "2026-05-10 00:00",
+      "url": "announcements/2026-05-10-tips-002.html",
+      "active": true,
+      "notify": true
+    },
+    {
+      "id": "2026-05-10-tips-003",
+      "category": "tips",
+      "title": "今日使える予算を、ホーム画面ですぐ確認",
+      "body": "ウィジェットで適性額を確認しながら、無理なく予算管理できます。",
+      "publishedAt": "2026-05-10 00:00",
+      "url": "announcements/2026-05-10-tips-003.html",
+      "active": true,
+      "notify": true
+    },
+    {
+      "id": "2026-05-10-tips-004",
+      "category": "tips",
+      "title": "ひと目で分かる、自分だけのカテゴリ管理",
+      "body": "絵文字と色でカテゴリを整理し、より直感的に管理できます。",
+      "publishedAt": "2026-05-10 00:00",
+      "url": "announcements/2026-05-10-tips-004.html",
       "active": true,
       "notify": true
     }
