@@ -1,7 +1,7 @@
 {
   "announcements": [
     {
-      "id": "2026-05-09-new-feature-001",
+      "id": "2026-05-09-new-feature-004",
       "category": "new_feature",
       "title": "新機能のお知らせ",
       "body": "登録画面を改善しました。",
@@ -11,7 +11,7 @@
       "notify": true
     },
     {
-      "id": "2026-05-09-new-feature-003",
+      "id": "2026-05-09-new-feature-005",
       "category": "new_feature",
       "title": "不具合発生のお知らせ",
       "body": "ダッシュボードタブが開けない事象が発生しております。",
