@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Liltの使い方のコツに関するお知らせです。">
+  <title>ティップスのお知らせ</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      letter-spacing: 0;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      border: 0;
+      border-radius: 0;
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 720px;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img,
+    .announcement-image svg {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 32px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article class="announcement" aria-labelledby="announcement-title" data-announcement-type="tips">
+      <div class="content">
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+          <time datetime="2026-05-10">2026.05.10</time>
+        </div>
+
+        <h1 id="announcement-title">Liltをもっと使いやすくするコツ</h1>
+        <p class="lead">
+          毎日の記録や見直しが少し楽になる、Liltの便利な使い方を紹介します。
+          いつもの操作にひと工夫加えるだけで、家計の流れを把握しやすくなります。
+        </p>
+
+        <!--
+          IMAGE_BLOCK_START
+          画像を削除する場合は、このコメントから IMAGE_BLOCK_END までを削除してください。
+          アプリ内表示では ../Lilt/... のような開発環境パスは読み込めません。
+          src は公開済みの https URL、同じ公開フォルダ内の相対パス、または data:image/... に差し替えてください。
+        -->
+        <figure class="announcement-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="ティップスのお知らせイメージ"><rect width="1600" height="900" fill="#ffffff"/><rect x="48" y="48" width="1504" height="804" rx="32" fill="none" stroke="#007c89" stroke-width="8"/><circle cx="800" cy="360" r="104" fill="#007c89" opacity=".12"/><path d="M748 356c0-34 25-62 57-62s57 28 57 62c0 22-10 38-26 54-14 14-20 25-20 45h-22c0-28 8-45 27-64 12-12 19-23 19-35 0-22-15-40-35-40s-35 18-35 40h-22z" fill="#007c89"/><path d="M786 484h38M790 520h30" fill="none" stroke="#007c89" stroke-width="18" stroke-linecap="round"/><text x="800" y="640" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif" font-size="70" font-weight="700" fill="#1d1d1f">Tips</text></svg>
+        </figure>
+        <!-- IMAGE_BLOCK_END -->
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+          <ul class="points">
+            <li>紹介したい便利な使い方を、1文でわかる粒度で記載します。</li>
+            <li>どの画面で使えるコツなのか、必要に応じて具体的に書きます。</li>
+            <li>設定や事前準備が必要な場合は、ここで簡単に触れます。</li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="how-to-use-title">
+          <h2 id="how-to-use-title">使い方</h2>
+          <p>
+            対象の画面を開き、紹介する操作を順番に試してください。
+            手順が複数ある場合は、ユーザーが迷わないよう短い文章で区切って記載します。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+          <p>
+            このテンプレートは、ちょっとした便利機能、設定のおすすめ、記録を続けるためのコツなどに使えます。
+            タイトル、概要、画像、本文を内容に合わせて差し替えてください。
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
