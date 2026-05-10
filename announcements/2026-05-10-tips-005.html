@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Liltで他の家計簿アプリやExcelのデータを引き継ぐ方法を紹介します。">
+  <title>これまでの家計簿、かんたん引き継ぎ</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.72;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .points-number {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .points-number li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+      counter-increment: step;
+    }
+
+    .points-number li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.72;
+      content: counter(step) ".";
+    }
+
+    .note-box {
+      margin-top: 14px;
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(120, 120, 128, 0.08);
+    }
+
+    .note-box h2 {
+      margin-bottom: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .note-box {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .csv-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .csv-item {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--separator);
+    }
+
+    .csv-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .csv-item-title {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .csv-item p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(120, 120, 128, 0.12);
+      font-size: 13px;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 24px 20px 40px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <article
+      class="announcement"
+      aria-labelledby="announcement-title"
+      data-announcement-type="tips"
+    >
+      <div class="content">
+
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+        </div>
+
+        <h1 id="announcement-title">
+          これまでの家計簿、<br>
+          かんたん引き継ぎ
+        </h1>
+
+        <p class="lead">
+          これまで他の家計簿アプリやExcelで管理していた記録も、
+          LiltではCSVを使ってまとめて引き継ぐことができます。
+          過去の支出や収入を残したまま、
+          これからの管理をLiltへ移行できます。
+        </p>
+
+        <figure class="announcement-image">
+          <img
+            src="2026-05-10-tips-005.jpg"
+            alt="CSVからLiltへデータを読み込むイメージ"
+          >
+        </figure>
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+
+          <ul class="points">
+            <li>
+              他の家計簿アプリやExcelのデータをCSVで引き継げます。
+            </li>
+
+            <li>
+              カテゴリや資金源は、自動で作成・紐付けされます。
+            </li>
+
+            <li>
+              読み込み結果は「データ管理」画面下部から確認できます。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 id="how-title">使い方</h2>
+
+          <ol class="points-number">
+
+            <li>
+              インポート用のCSVファイルを用意します。
+
+              <div class="note-box">
+                <p>
+                  はじめに「CSVを書き出す」をタップして出力されるCSVを、
+                  テンプレートとして使用できます。
+                  CSVの基本仕様については、下にまとめています。
+                </p>
+              </div>
+            </li>
+
+            <li>
+              画面右上の設定ボタンをタップします。
+            </li>
+
+            <li>
+              <a href="lilt://settings/data-management">
+                「データ管理」
+              </a>
+              を開きます。
+            </li>
+
+            <li>
+              「CSVを読み込む」をタップします。
+            </li>
+
+            <li>
+              用意していたCSVファイルを選択します。
+            </li>
+
+            <li>
+              読み込みが完了すると、
+              データ管理画面下部の「結果」に内容が表示されます。
+            </li>
+
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="csv-title">
+
+          <div class="note-box">
+
+            <h2 id="csv-title">
+              CSVの基本仕様
+            </h2>
+
+            <p>
+              CSVは1行につき1件の記録として読み込まれます。
+              主に以下の列に対応しています。
+            </p>
+
+            <div class="csv-list">
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>date</code>：日付
+                </h3>
+
+                <p>
+                  <code>2025/03/15 14:30:00</code>、
+                  <code>2025-03-15 14:30</code>、
+                  <code>2025/03/15</code>、
+                  <code>2025-03-15</code>、
+                  <code>2025-03-15T14:30:00.000Z</code>
+                  などを自動判別します。<br>
+                  日付のみの場合は、その日の0:00として扱われます。
+                  前後のスペースや改行は自動で整理されます。
+                </p>
+              </div>
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>kind</code>：種別
+                </h3>
+
+                <p>
+                  <code>expense</code> は支出、
+                  <code>income</code> は収入として扱われます。
+                </p>
+              </div>
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>category</code>：カテゴリ
+                </h3>
+
+                <p>
+                  既存カテゴリと一致すれば自動で紐付け、
+                  一致しない場合は新規作成されます。<br>
+                  <code>category_identifier</code> が含まれている場合は、
+                  カテゴリ名よりも優先して照合されます。
+                </p>
+              </div>
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>funding_source</code>：支払元・入金先
+                </h3>
+
+                <p>
+                  既存の項目と一致すれば紐付け、
+                  一致しない場合は自動で追加されます。
+                </p>
+              </div>
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>amount</code>：金額
+                </h3>
+
+                <p>
+                  <code>¥1,500</code>、
+                  <code>1500円</code>、
+                  <code>1,500</code>
+                  などの形式を自動で整形し、
+                  整数として読み込みます。
+                </p>
+              </div>
+
+              <div class="csv-item">
+                <h3 class="csv-item-title">
+                  <code>note</code>：メモ
+                </h3>
+
+                <p>
+                  自由に入力できます。省略も可能です。
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+
+          <p>
+            CSVの読み込み結果は、
+            データ管理画面下部の「結果」から確認できます。
+            エラーが発生した場合も、
+            対象の行番号や内容が表示されます。
+          </p>
+        </section>
+
+      </div>
+    </article>
+  </main>
+</body>
+</html>
