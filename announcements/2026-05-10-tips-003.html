@@ -207,6 +207,22 @@
       content: counter(step) ".";
     }
 
+    .note-box {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(120, 120, 128, 0.08);
+    }
+
+    .note-box h2 {
+      margin-bottom: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .note-box {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
     .note-list {
       display: grid;
       gap: 18px;
@@ -253,6 +269,11 @@
 
       .divider {
         margin: 32px 0;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
       }
     }
   </style>
@@ -356,30 +377,34 @@
         </section>
 
         <section class="section" aria-labelledby="setting-note-title">
-          <h2 id="setting-note-title">カスタマイズできる項目</h2>
+          <div class="note-box">
+            <h2 id="setting-note-title">
+              カスタマイズできる項目
+            </h2>
 
-          <ul class="note-list">
-            <li>
-              <strong>カテゴリ</strong>
-              <span>
-                適性額を表示する対象のカテゴリを選択できます。
-              </span>
-            </li>
+            <ul class="note-list">
+              <li>
+                <strong>カテゴリ</strong>
+                <span>
+                  適性額を表示する対象のカテゴリを選択できます。
+                </span>
+              </li>
 
-            <li>
-              <strong>数値の表示形式</strong>
-              <span>
-                金額のみ、割合のみ、または金額と割合の両方を表示できます。
-              </span>
-            </li>
+              <li>
+                <strong>数値の表示形式</strong>
+                <span>
+                  金額のみ、割合のみ、または金額と割合の両方を表示できます。
+                </span>
+              </li>
 
-            <li>
-              <strong>適性額の単位</strong>
-              <span>
-                「1回の適性額」または「今日の適性額」から選択できます。
-              </span>
-            </li>
-          </ul>
+              <li>
+                <strong>適性額の単位</strong>
+                <span>
+                  「1回の適性額」または「今日の適性額」から選択できます。
+                </span>
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section class="section" aria-labelledby="note-title">
