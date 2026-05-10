@@ -199,6 +199,22 @@
       content: counter(step) ".";
     }
 
+    .note-box {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(120, 120, 128, 0.08);
+    }
+
+    .note-box h2 {
+      margin-bottom: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .note-box {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
     .note-list {
       display: grid;
       gap: 18px;
@@ -241,6 +257,11 @@
 
       .divider {
         margin: 32px 0;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
       }
     }
   </style>
@@ -374,66 +395,76 @@
         </section>
 
         <section class="section" aria-labelledby="advanced-note-title">
-          <h2 id="advanced-note-title">応用設定でカスタマイズできる項目</h2>
 
-          <ul class="note-list">
-            <li>
-              <strong>Amount</strong>
-              <span>
-                未入力のまま推奨。
-                毎回固定金額で登録する場合は入力します。
-              </span>
-            </li>
+          <div class="note-box">
 
-            <li>
-              <strong>選択可能な支払元 / 入金先</strong>
-              <span>
-                Liltに登録されている支払元・入金先から、
-                実行時に表示する候補を絞ることができます。
-              </span>
-            </li>
+            <h2 id="advanced-note-title">
+              応用設定でカスタマイズできる項目
+            </h2>
 
-            <li>
-              <strong>支払元 / 入金先</strong>
-              <span>
-                未設定のまま推奨。
-                毎回固定する場合は選択します。
-              </span>
-            </li>
+            <ul class="note-list">
 
-            <li>
-              <strong>選択可能なカテゴリ</strong>
-              <span>
-                Liltに登録されているカテゴリから、
-                実行時に表示する候補を絞ることができます。
-              </span>
-            </li>
+              <li>
+                <strong>Amount</strong>
+                <span>
+                  未入力のまま推奨。
+                  毎回固定金額で登録する場合は入力します。
+                </span>
+              </li>
 
-            <li>
-              <strong>カテゴリ</strong>
-              <span>
-                未設定のまま推奨。
-                毎回固定カテゴリで登録する場合は選択します。
-              </span>
-            </li>
+              <li>
+                <strong>選択可能な支払元 / 入金先</strong>
+                <span>
+                  Liltに登録されている支払元・入金先から、
+                  実行時に表示する候補を絞ることができます。
+                </span>
+              </li>
 
-            <li>
-              <strong>Memo</strong>
-              <span>
-                未入力のまま推奨。
-                毎回固定メモを入れたい場合は入力します。
-              </span>
-            </li>
+              <li>
+                <strong>支払元 / 入金先</strong>
+                <span>
+                  未設定のまま推奨。
+                  毎回固定する場合は選択します。
+                </span>
+              </li>
 
-            <li>
-              <strong>実行時に表示</strong>
-              <span>
-                オフ推奨。
-                ショートカット側の通知を表示せず、
-                よりスムーズに実行できます。
-              </span>
-            </li>
-          </ul>
+              <li>
+                <strong>選択可能なカテゴリ</strong>
+                <span>
+                  Liltに登録されているカテゴリから、
+                  実行時に表示する候補を絞ることができます。
+                </span>
+              </li>
+
+              <li>
+                <strong>カテゴリ</strong>
+                <span>
+                  未設定のまま推奨。
+                  毎回固定カテゴリで登録する場合は選択します。
+                </span>
+              </li>
+
+              <li>
+                <strong>Memo</strong>
+                <span>
+                  未入力のまま推奨。
+                  毎回固定メモを入れたい場合は入力します。
+                </span>
+              </li>
+
+              <li>
+                <strong>実行時に表示</strong>
+                <span>
+                  オフ推奨。
+                  ショートカット側の通知を表示せず、
+                  よりスムーズに実行できます。
+                </span>
+              </li>
+
+            </ul>
+
+          </div>
+
         </section>
 
         <section class="section" aria-labelledby="note-title">
