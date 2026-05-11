@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <meta name="description" content="Liltをアプリを開かずにロック画面から記録する方法を紹介します。">
   <title>アプリを開かず、ロック画面からすぐ記録</title>
 
@@ -200,7 +201,7 @@
     }
 
     .note-box {
-      padding: 18px;
+      padding: 18px 20px;
       border-radius: 18px;
       background: rgba(120, 120, 128, 0.08);
     }
@@ -215,29 +216,57 @@
       }
     }
 
-    .note-list {
+    .setting-list {
       display: grid;
       gap: 18px;
+      margin-top: 18px;
+    }
+
+    .setting-item {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--separator);
+    }
+
+    .setting-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .setting-item-title {
       margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .note-list li {
-      color: var(--text);
       font-size: 15px;
-      line-height: 1.72;
-    }
-
-    .note-list strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--text);
+      line-height: 1.7;
       font-weight: 700;
+      color: var(--text);
     }
 
-    .note-list span {
-      color: var(--text-secondary);
+    .setting-item p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(120, 120, 128, 0.12);
+      font-size: 13px;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: rgba(255, 255, 255, 0.08);
+      }
     }
 
     @media (max-width: 720px) {
@@ -306,17 +335,9 @@
           <h2 id="tip-summary-title">今回のコツ</h2>
 
           <ul class="points">
-            <li>
-              ショートカットを使うと、Liltを開かずに記録できます。
-            </li>
-
-            <li>
-              ロック画面に設定しておくと、決済後すぐに記録できます。
-            </li>
-
-            <li>
-              支出記録・収入記録のどちらもクイック登録できます。
-            </li>
+            <li>ショートカットを使うと、Liltを開かずに記録できます。</li>
+            <li>ロック画面に設定しておくと、決済後すぐに記録できます。</li>
+            <li>支出記録・収入記録のどちらもクイック登録できます。</li>
           </ul>
         </section>
 
@@ -335,33 +356,13 @@
           <h2 id="easy-title">簡単設定</h2>
 
           <ol class="points-number">
-            <li>
-              ロック画面を開き、画面の余白部分を長押しします。
-            </li>
-
-            <li>
-              画面下中央の「カスタマイズ」をタップします。
-            </li>
-
-            <li>
-              画面下左右の丸いアイコンから、不要な方の「−」をタップします。
-            </li>
-
-            <li>
-              「＋」をタップし、「ショートカットを実行」を選択します。
-            </li>
-
-            <li>
-              「選択」をタップし、検索バーで「Lilt」と検索します。
-            </li>
-
-            <li>
-              「支出記録」または「収入記録」から、クイック登録したい方を選びます。
-            </li>
-
-            <li>
-              画面右上の「完了」をタップします。
-            </li>
+            <li>ロック画面を開き、画面の余白部分を長押しします。</li>
+            <li>画面下中央の「カスタマイズ」をタップします。</li>
+            <li>画面下左右の丸いアイコンから、不要な方の「−」をタップします。</li>
+            <li>「＋」をタップし、「ショートカットを実行」を選択します。</li>
+            <li>「選択」をタップし、検索バーで「Lilt」と検索します。</li>
+            <li>「支出記録」または「収入記録」から、クイック登録したい方を選びます。</li>
+            <li>画面右上の「完了」をタップします。</li>
           </ol>
         </section>
 
@@ -395,76 +396,98 @@
         </section>
 
         <section class="section" aria-labelledby="advanced-note-title">
-
           <div class="note-box">
-
             <h2 id="advanced-note-title">
               応用設定でカスタマイズできる項目
             </h2>
 
-            <ul class="note-list">
+            <p>
+              ショートカットでは、実行時に表示する内容や、
+              あらかじめ固定しておく項目を調整できます。
+            </p>
 
-              <li>
-                <strong>Amount</strong>
-                <span>
-                  未入力のまま推奨。
-                  毎回固定金額で登録する場合は入力します。
-                </span>
-              </li>
+            <div class="setting-list">
 
-              <li>
-                <strong>選択可能な支払元 / 入金先</strong>
-                <span>
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>Amount</code>：金額
+                </h3>
+
+                <p>
+                  未入力のままがおすすめです。
+                  毎回固定金額で登録したい場合のみ入力します。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>選択可能な支払元 / 入金先</code>：候補の絞り込み
+                </h3>
+
+                <p>
                   Liltに登録されている支払元・入金先から、
                   実行時に表示する候補を絞ることができます。
-                </span>
-              </li>
+                </p>
+              </div>
 
-              <li>
-                <strong>支払元 / 入金先</strong>
-                <span>
-                  未設定のまま推奨。
-                  毎回固定する場合は選択します。
-                </span>
-              </li>
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>支払元 / 入金先</code>：固定する項目
+                </h3>
 
-              <li>
-                <strong>選択可能なカテゴリ</strong>
-                <span>
+                <p>
+                  未設定のままがおすすめです。
+                  毎回同じ支払元・入金先で登録したい場合のみ選択します。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>選択可能なカテゴリ</code>：候補の絞り込み
+                </h3>
+
+                <p>
                   Liltに登録されているカテゴリから、
                   実行時に表示する候補を絞ることができます。
-                </span>
-              </li>
+                </p>
+              </div>
 
-              <li>
-                <strong>カテゴリ</strong>
-                <span>
-                  未設定のまま推奨。
-                  毎回固定カテゴリで登録する場合は選択します。
-                </span>
-              </li>
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>カテゴリ</code>：固定するカテゴリ
+                </h3>
 
-              <li>
-                <strong>Memo</strong>
-                <span>
-                  未入力のまま推奨。
-                  毎回固定メモを入れたい場合は入力します。
-                </span>
-              </li>
+                <p>
+                  未設定のままがおすすめです。
+                  毎回同じカテゴリで登録したい場合のみ選択します。
+                </p>
+              </div>
 
-              <li>
-                <strong>実行時に表示</strong>
-                <span>
-                  オフ推奨。
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>Memo</code>：メモ
+                </h3>
+
+                <p>
+                  未入力のままがおすすめです。
+                  毎回固定メモを入れたい場合のみ入力します。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>実行時に表示</code>：実行時の確認表示
+                </h3>
+
+                <p>
+                  オフがおすすめです。
                   ショートカット側の通知を表示せず、
                   よりスムーズに実行できます。
-                </span>
-              </li>
+                </p>
+              </div>
 
-            </ul>
-
+            </div>
           </div>
-
         </section>
 
         <section class="section" aria-labelledby="note-title">
