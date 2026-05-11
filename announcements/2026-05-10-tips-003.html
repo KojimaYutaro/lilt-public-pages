@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <meta name="description" content="Liltのウィジェットで適性額をすぐに確認する方法を紹介します。">
   <title>今日使える予算を、ホーム画面ですぐ確認</title>
 
@@ -208,7 +209,7 @@
     }
 
     .note-box {
-      padding: 18px;
+      padding: 18px 20px;
       border-radius: 18px;
       background: rgba(120, 120, 128, 0.08);
     }
@@ -223,29 +224,57 @@
       }
     }
 
-    .note-list {
+    .setting-list {
       display: grid;
       gap: 18px;
+      margin-top: 18px;
+    }
+
+    .setting-item {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--separator);
+    }
+
+    .setting-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .setting-item-title {
       margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .note-list li {
-      color: var(--text);
       font-size: 15px;
-      line-height: 1.72;
-    }
-
-    .note-list strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--text);
+      line-height: 1.7;
       font-weight: 700;
+      color: var(--text);
     }
 
-    .note-list span {
-      color: var(--text-secondary);
+    .setting-item p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(120, 120, 128, 0.12);
+      font-size: 13px;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: rgba(255, 255, 255, 0.08);
+      }
     }
 
     @media (max-width: 720px) {
@@ -322,17 +351,9 @@
           <h2 id="tip-summary-title">今回のコツ</h2>
 
           <ul class="points">
-            <li>
-              アプリを開かなくても、適性額を確認できます。
-            </li>
-
-            <li>
-              過去の記録をもとに、買い物の目安となる金額を表示します。
-            </li>
-
-            <li>
-              月末に予算ギリギリで焦らないよう、日々の買い物をサポートします。
-            </li>
+            <li>アプリを開かなくても、適性額を確認できます。</li>
+            <li>過去の記録をもとに、買い物の目安となる金額を表示します。</li>
+            <li>月末に予算ギリギリで焦らないよう、日々の買い物をサポートします。</li>
           </ul>
         </section>
 
@@ -340,27 +361,21 @@
           <h2 id="how-title">使い方</h2>
 
           <ol class="points-number">
-            <li>
-              ホーム画面で余白部分を長押しします。
-            </li>
+            <li>ホーム画面で余白部分を長押しします。</li>
 
             <li>
               画面左上の「編集」をタップし
               「ウィジェットを追加」をタップします。
             </li>
 
-            <li>
-              「ウィジェットを検索」から「Lilt」を検索します。
-            </li>
+            <li>「ウィジェットを検索」から「Lilt」を検索します。</li>
 
             <li>
               2つのサイズから好みのものを選択し
               「ウィジェットを追加」をタップします。
             </li>
 
-            <li>
-              画面右上の「完了」をタップすると、設定が完了します。
-            </li>
+            <li>画面右上の「完了」をタップすると、設定が完了します。</li>
           </ol>
         </section>
 
@@ -382,28 +397,50 @@
               カスタマイズできる項目
             </h2>
 
-            <ul class="note-list">
-              <li>
-                <strong>カテゴリ</strong>
-                <span>
+            <p>
+              ウィジェットでは、表示する対象や見せ方を
+              使い方に合わせて変更できます。
+            </p>
+
+            <div class="setting-list">
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>カテゴリ</code>：表示対象
+                </h3>
+
+                <p>
                   適性額を表示する対象のカテゴリを選択できます。
-                </span>
-              </li>
+                  よく確認するカテゴリを設定しておくと、
+                  ホーム画面からすぐに目安を確認できます。
+                </p>
+              </div>
 
-              <li>
-                <strong>数値の表示形式</strong>
-                <span>
-                  金額のみ、割合のみ、または金額と割合の両方を表示できます。
-                </span>
-              </li>
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>数値の表示形式</code>：金額・割合の表示
+                </h3>
 
-              <li>
-                <strong>適性額の単位</strong>
-                <span>
+                <p>
+                  金額のみ、割合のみ、
+                  または金額と割合の両方を表示できます。
+                  見たい情報に合わせて表示形式を選べます。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  <code>適性額の単位</code>：1回・今日の切り替え
+                </h3>
+
+                <p>
                   「1回の適性額」または「今日の適性額」から選択できます。
-                </span>
-              </li>
-            </ul>
+                  買い物1回ごとの目安を見たい場合や、
+                  今日使える目安を見たい場合に使い分けられます。
+                </p>
+              </div>
+
+            </div>
           </div>
         </section>
 
