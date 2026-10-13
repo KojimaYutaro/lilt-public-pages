@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="記録した場所から、よく使うカテゴリを自動で選ぶ方法を紹介します。">
+  <title>いつものお店なら、カテゴリは自動で選択</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.72;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .points-number {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .points-number li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+      counter-increment: step;
+    }
+
+    .points-number li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.72;
+      content: counter(step) ".";
+    }
+
+    .note-box {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(120, 120, 128, 0.08);
+    }
+
+    .note-box h2 {
+      margin-bottom: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .note-box {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .setting-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .setting-item {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--separator);
+    }
+
+    .setting-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .setting-item-title {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .setting-item p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(120, 120, 128, 0.12);
+      font-size: 13px;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 24px 20px 40px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article
+      class="announcement"
+      aria-labelledby="announcement-title"
+      data-announcement-type="tips"
+    >
+      <div class="content">
+
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+        </div>
+
+        <h1 id="announcement-title">
+          いつものお店なら、<br>
+          カテゴリは自動で選択
+        </h1>
+
+        <p class="lead">
+          Liltは、記録した場所を覚えておくことができます。
+          同じ場所で次に記録するときは、
+          そこでよく使うカテゴリが最初から選ばれた状態になるので、
+          金額を入れて保存するだけで記録が完了します。
+        </p>
+
+        <figure class="announcement-image">
+          <img
+            src="2026-10-24-tips-007.jpg"
+            alt="「この場所でよく使う」カテゴリが自動で選ばれたカテゴリ一覧"
+          >
+        </figure>
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+
+          <ul class="points">
+            <li>
+              同じ場所で2回以上記録すると、
+              次からはその場所でよく使うカテゴリが自動で選ばれます。
+            </li>
+
+            <li>
+              自動で選ばれたときは「この場所でよく使う」と表示されるので、
+              ひと目で分かります。
+            </li>
+
+            <li>
+              違うカテゴリにしたいときは、いつも通り選び直すだけです。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="how-to-use-title">
+          <h2 id="how-to-use-title">使い方</h2>
+
+          <ol class="points-number">
+            <li>
+              記録を保存したあとに表示される位置情報の確認で、
+              「アプリの使用中は許可」を選びます。
+            </li>
+
+            <li>
+              あとは、いつも通り登録画面から記録するだけです。
+              記録した場所が少しずつ覚えられていきます。
+            </li>
+
+            <li>
+              同じお店などで登録画面を開くと、
+              よく使うカテゴリが選ばれた状態で表示されます。
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="toggle-title">
+          <h2 id="toggle-title">オン・オフの切り替え</h2>
+
+          <p>
+            登録タブのカテゴリ選択にある
+            <a href="lilt://entry/location-auto-select">
+              「場所からカテゴリを自動選択」
+            </a>
+            で、いつでもオン・オフを切り替えられます。
+            位置情報の許可は、設定の
+            <a href="lilt://settings/permissions">
+              「アクセス許可」
+            </a>
+            からも確認・変更できます。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="privacy-note-title">
+          <div class="note-box">
+            <h2 id="privacy-note-title">
+              位置情報の扱いについて
+            </h2>
+
+            <div class="setting-list">
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  取得するのは、登録画面を開いたときだけ
+                </h3>
+
+                <p>
+                  位置情報はアプリの使用中のみ取得します。
+                  バックグラウンドで現在地を追跡することはありません。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  共有家計簿の相手には表示されません
+                </h3>
+
+                <p>
+                  共有家計簿で記録した場合も、
+                  位置情報が他のメンバーに送られたり、表示されたりすることはありません。
+                </p>
+              </div>
+
+              <div class="setting-item">
+                <h3 class="setting-item-title">
+                  記録ごとに削除できます
+                </h3>
+
+                <p>
+                  記録の詳細画面から「この記録の位置情報を削除」を選ぶと、
+                  記録はそのままで位置情報だけを削除できます。
+                  削除した場所は、カテゴリの自動選択にも使われなくなります。
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+
+          <p>
+            場所が記録されるのは、登録画面で「今」の記録をしたときだけです。
+            過去の日付で記録した場合は、現在地は記録されません。
+            また、建物の中などで位置の精度が低いときは、場所を記録しないことがあります。
+          </p>
+        </section>
+
+      </div>
+    </article>
+  </main>
+</body>
+</html>

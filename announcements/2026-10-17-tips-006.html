@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="共有家計簿を使って、家族やパートナーと一緒に家計を管理する方法を紹介します。">
+  <title>家族やパートナーと、ひとつの家計簿を</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --separator: rgba(60, 60, 67, 0.18);
+      --accent: #007c89;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #000000;
+        --surface: #000000;
+        --text: #ffffff;
+        --text-secondary: #a1a1a6;
+        --separator: rgba(235, 235, 245, 0.16);
+        --accent: #40c8e0;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--background);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.72;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 56px 20px;
+    }
+
+    .announcement {
+      background: var(--surface);
+    }
+
+    .content {
+      padding: 0;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .announcement-image {
+      margin: 34px 0 0;
+    }
+
+    .announcement-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 40px 0;
+      background: var(--separator);
+    }
+
+    .section {
+      display: grid;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    .section + .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.78;
+    }
+
+    .points {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .points li::before {
+      position: absolute;
+      top: 0.78em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .points-number {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .points-number li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.72;
+      counter-increment: step;
+    }
+
+    .points-number li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.72;
+      content: counter(step) ".";
+    }
+
+    .note-box {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(120, 120, 128, 0.08);
+    }
+
+    .note-box h2 {
+      margin-bottom: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .note-box {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .setting-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .setting-item {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--separator);
+    }
+
+    .setting-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .setting-item-title {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .setting-item p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(120, 120, 128, 0.12);
+      font-size: 13px;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 24px 20px 40px;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      .divider {
+        margin: 32px 0;
+      }
+
+      .note-box {
+        padding: 16px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article
+      class="announcement"
+      aria-labelledby="announcement-title"
+      data-announcement-type="tips"
+    >
+      <div class="content">
+
+        <div class="meta">
+          <span class="eyebrow">ティップス</span>
+        </div>
+
+        <h1 id="announcement-title">
+          家族やパートナーと、<br>
+          ひとつの家計簿を
+        </h1>
+
+        <p class="lead">
+          共有家計簿を使うと、家族やパートナーと同じ家計簿を、
+          それぞれのiPhoneから記録・確認できます。
+          誰が記録したかも表示されるので、
+          「これ、何に使ったんだっけ？」の確認もスムーズです。
+        </p>
+
+        <figure class="announcement-image">
+          <img
+            src="2026-10-17-tips-006.jpg"
+            alt="共有家計簿の「メンバーを招待」画面"
+          >
+        </figure>
+
+        <div class="divider" role="presentation"></div>
+
+        <section class="section" aria-labelledby="tip-summary-title">
+          <h2 id="tip-summary-title">今回のコツ</h2>
+
+          <ul class="points">
+            <li>
+              共有家計簿は、個人の家計簿とは別に作成されます。
+              個人の家計簿の記録が、相手に見えることはありません。
+            </li>
+
+            <li>
+              記録には追加したメンバーの名前が表示されるので、
+              誰の支出かがひと目で分かります。
+            </li>
+
+            <li>
+              作成には
+              <a href="lilt://settings/lilt-plus">Lilt Plus</a>
+              が必要ですが、招待されて参加する方は加入不要です。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="create-title">
+          <h2 id="create-title">共有家計簿を作成して招待する</h2>
+
+          <p>
+            共有家計簿の作成は、
+            <a href="lilt://settings/lilt-plus">Lilt Plus</a>
+            限定の機能です。
+          </p>
+
+          <ol class="points-number">
+            <li>
+              設定の
+              <a href="lilt://settings/shared-budgets">
+                「共有家計簿」
+              </a>
+              を開き、「新しい共有家計簿を作成」をタップします。
+            </li>
+
+            <li>
+              家計簿の名前を入力し、
+              「新規で始める」か「既存の家計簿からコピー」を選んで作成します。
+            </li>
+
+            <li>
+              作成した家計簿の「メンバーを招待」から、
+              相手の iCloud に登録されているメールアドレス、
+              または電話番号を入力して「招待する」をタップします。
+            </li>
+
+            <li>
+              発行された参加URLを、メッセージやメールで相手に送ります。
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="join-title">
+          <h2 id="join-title">招待された側の参加方法</h2>
+
+          <p>
+            届いたURLをタップすると、Liltが開いて共有家計簿に参加できます。
+            参加URLは、招待時に指定した iCloud アカウントでのみ使えます。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="switch-title">
+          <h2 id="switch-title">家計簿の切り替え</h2>
+
+          <p>
+            画面右上の人型アイコンをタップすると、
+            個人の家計簿と共有家計簿をいつでも切り替えられます。
+            共有家計簿を開いているときは、アイコンが2人の青いマークに変わります。
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="name-note-title">
+          <div class="note-box">
+            <h2 id="name-note-title">
+              表示名は家計簿ごとに設定できます
+            </h2>
+
+            <p>
+              記録に表示されるあなたの名前は、
+              設定の「共有家計簿」から家計簿ごとに変更できます。
+              家族用では家での呼び名、友人用ではニックネームなど、
+              相手に合わせて使い分けられます。
+            </p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="note-title">
+          <h2 id="note-title">補足</h2>
+
+          <p>
+            共有家計簿のデータは、iCloud を通じて参加メンバー間で同期されます。
+            オーナーの Lilt Plus の有効期限が切れた場合、
+            共有家計簿は読み取り専用になり、
+            Lilt Plus を再度有効にすると再び編集できるようになります。
+          </p>
+        </section>
+
+      </div>
+    </article>
+  </main>
+</body>
+</html>
