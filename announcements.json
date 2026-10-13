@@ -1,6 +1,26 @@
 {
   "announcements": [
     {
+      "id": "2026-10-24-tips-007",
+      "category": "tips",
+      "title": "いつものお店なら、カテゴリは自動で選択",
+      "body": "記録した場所を覚えて、よく使うカテゴリを自動で選びます。",
+      "publishedAt": "2026-10-24 10:00",
+      "url": "announcements/2026-10-24-tips-007.html",
+      "active": true,
+      "notify": false
+    },
+    {
+      "id": "2026-10-17-tips-006",
+      "category": "tips",
+      "title": "家族やパートナーと、ひとつの家計簿を",
+      "body": "共有家計簿で、同じ家計簿をそれぞれのiPhoneから記録・確認できます。",
+      "publishedAt": "2026-10-17 10:00",
+      "url": "announcements/2026-10-17-tips-006.html",
+      "active": true,
+      "notify": false
+    },
+    {
       "id": "2026-05-10-tips-001",
       "category": "tips",
       "title": "まとめ買いも、かんたん内訳管理",
